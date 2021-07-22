@@ -1,4 +1,3 @@
-import {Button} from "react-bootstrap";
 import {SEOComponent} from "../components/SEO";
 
 export default function AboutMe() {
