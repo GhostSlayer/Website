@@ -26,7 +26,7 @@ export default function Drivet() {
         All the services will be under my name, GhostSlayer, not Drivet anymore.
       </p>
       <p>
-        Drivet's second developer, VenixDev will help me with developing PepperBot, and we will hardly focus on PepperBot&apos;s stability and performance
+        Drivet&apos;s second developer, VenixDev will help me with developing PepperBot, and we will hardly focus on PepperBot&apos;s stability and performance
       </p>
       <small>- Slayer <small>22.07.2021</small></small>
     </div>
