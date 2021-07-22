@@ -1,8 +1,10 @@
 import {Button} from "react-bootstrap";
+import {SEOComponent} from "../components/SEO";
 
-export default function Drivet() {
+export default function NotFound() {
   return (
     <div className="container">
+      <SEOComponent title="Not Found"/>
       <h1>Not found</h1>
       <p>Sorry, the page you are trying to find was not found.</p>
       <p>One of these is the reason why the page was not found:</p>

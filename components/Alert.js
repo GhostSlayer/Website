@@ -1,5 +1,4 @@
-import {Container, Navbar, Nav, NavDropdown, Image, Alert} from 'react-bootstrap'
-import Link from 'next/link'
+import {Alert} from 'react-bootstrap'
 import {useState} from "react";
 
 export const AlertComponent = ({ show, variant, title, desc }) => {

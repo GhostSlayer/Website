@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import {AlertComponent} from "../components/Alert";
+import {SEOComponent} from "../components/SEO";
 
 export default function Drivet() {
   const router = useRouter()
@@ -7,6 +8,7 @@ export default function Drivet() {
 
   return (
     <div className="container">
+      <SEOComponent title="Drivet Statement"/>
       {ref === 'drivet.xyz' &&
         <AlertComponent
           show
