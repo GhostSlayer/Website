@@ -4,17 +4,22 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "npm run i18n && next build",
+    "start": "next start -p 4000",
+    "extract:i18n": "formatjs extract '{pages,components,sections}/**/*.{js,ts,tsx}' --format simple --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+    "compile:i18n": "formatjs compile-folder --ast --format simple content/locales content/compiled-locales",
+    "i18n": "npm run extract:i18n && npm run compile:i18n"
   },
   "dependencies": {
     "bootstrap": "^5.0.2",
+    "fs": "^0.0.1-security",
     "next": "11.0.1",
+    "next-auth": "^3.27.3",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-toastify": "^7.0.4"
   },
   "devDependencies": {
     "eslint": "7.31.0",

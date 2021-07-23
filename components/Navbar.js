@@ -1,4 +1,4 @@
-import { Container, Navbar, Nav, NavDropdown, Image } from 'react-bootstrap'
+import {Container, Navbar, Nav, NavDropdown, Image, Badge} from 'react-bootstrap'
 import Link from 'next/link'
 import {ActiveLink} from "./ActiveLink";
 
@@ -21,10 +21,22 @@ export const NavbarComponent = () => {
                     <ActiveLink activeClassName="active" href="/projects">
                         <Nav.Link href="/projects">Projects</Nav.Link>
                     </ActiveLink>
+                    <ActiveLink activeClassName="active" href="/contact">
+                        <Nav.Link href="/contact">Contact <small><Badge pill bg="secondary">New</Badge></small></Nav.Link>
+                    </ActiveLink>
                     <NavDropdown title="More" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="//discord.gg/NQuuQqeP7j" target="_blank">Join my Discord</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="https://status.ghostslayer.tk" target="_blank">Service Status</NavDropdown.Item>
+                        <NavDropdown.Item href="//discord.gg/NQuuQqeP7j" target="_blank">Join my Discord</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="https://status.ghostslayer.tk" target="_blank">Service Status</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown title="Language" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#">
+                            <Link href="/" locale="en"><a>English</a></Link>
+                        </NavDropdown.Item>
+
+                        <NavDropdown.Item href="#">
+                            <Link href="/" locale="fi"><a>Finnish (Suomi)</a></Link>
+                        </NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
                 </Navbar.Collapse>

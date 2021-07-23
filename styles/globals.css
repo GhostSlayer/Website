@@ -25,3 +25,23 @@ body {
     margin-right: 10px !important;
     border-radius: 100%;
 }
+
+.center {
+    text-align: center;
+}
+
+.contact-form {
+    text-align: left;
+}
+
+@media screen and (max-width: 1232px) {
+    .contact-form {
+        width: 95% !important;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .contact-form {
+        width: 55% !important;
+    }
+}
