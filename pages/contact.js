@@ -19,7 +19,7 @@ export default function AboutMe() {
     if (!event.target.message.value) return toast.error('The message can not be empty!')
     if (event.target.message.value.length > 2000) return toast.error('The message should contain only 2000 characters')
 
-    fetch('http://localhost:3000/api/contact', {
+    fetch('https://ghostslayer.tk/api/contact', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
