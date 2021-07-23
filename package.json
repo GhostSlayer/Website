@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run i18n && next build",
+    "build": "next build",
     "start": "next start -p 4000",
     "update": "git stash && git pull && npm i && npm run build && pm2 start"
   },
