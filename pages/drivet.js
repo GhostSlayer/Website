@@ -7,7 +7,7 @@ export default function Drivet() {
   const { ref } = router.query
 
   return (
-    <div className="container">
+    <div>
       <SEOComponent title="Drivet Statement"/>
       {ref === 'drivet.xyz' &&
         <AlertComponent

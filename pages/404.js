@@ -3,7 +3,7 @@ import {SEOComponent} from "../components/SEO";
 
 export default function NotFound() {
   return (
-    <div className="container">
+    <div>
       <SEOComponent title="Not Found"/>
       <h1>Not found</h1>
       <p>Sorry, the page you are trying to find was not found.</p>

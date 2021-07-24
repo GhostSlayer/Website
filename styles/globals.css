@@ -4,16 +4,22 @@
     font-family: 'Poppins', sans-serif;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     background: #0E1220 !important;
-    color: white !important
+    color: white !important;
+    margin-bottom: 100px !important;
 }
 
 .nav-item, .nav-link {
     font-weight: 600;
 }
 
-.navbar {
+.navbar, .card {
     background-color: #0A0F1A !important;
 }
 
@@ -50,4 +56,24 @@ body {
     position:relative;
     margin-left: 7px;
     top:-9.5px;
+}
+
+.tooltip-logo {
+    margin-left: 7px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #0A0F1A;
+}
+
+.container.small {
+    max-width: 1000px !important;
+    width: auto !important;
+    padding: 0 15px !important;
+    font-size: medium;
 }

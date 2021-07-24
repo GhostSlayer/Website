@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import Switch from "react-switch";
 
-export default function AboutMe() {
+export default function Contact() {
   const [ session, loading ] = useSession()
   const [ message, setMessage ] = useState('')
   const [captchaDone, setCaptchaDone] = useState(false);
@@ -40,14 +40,15 @@ export default function AboutMe() {
 
   return (
     <>
-      <div className="container">
+      <div>
         <SEOComponent title="Contact Me"/>
         <h2 className="center">Contact Me</h2>
+
         <br/>
         {!session &&
         <center>
-          <p>You have to sign in before contacting me.</p>
-          <button onClick={() => signIn('discord')}>Sign in</button>
+          <p>You have to sign in before contacting me</p>
+          <Button className="contact-button" onClick={() => signIn('discord')}><i className="fab fa-discord"></i> Sign in with Discord</Button>
         </center>
         }
 
@@ -57,6 +58,17 @@ export default function AboutMe() {
           <Form className="contact-form" onSubmit={sendWebhook}>
             <Form.Group className="mb-3">
               <Form.Label>Discord Name and ID</Form.Label>
+              <OverlayTrigger
+                overlay={
+                  <Tooltip id="tooltip">
+                    Discord Name and ID is mandatory. If you are in our server, we may contact you from Discord instead of Email
+                  </Tooltip>
+                }
+              >
+                <span className="d-inline-block tooltip-logo">
+                  <i className="fas fa-info-circle"/>
+                </span>
+              </OverlayTrigger>
               <Form.Control type="text" placeholder={`${session.user.name} | ${session.userId}`} readOnly/>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -91,6 +103,7 @@ export default function AboutMe() {
                   <i className="fas fa-info-circle"/>
                 </span>
               </OverlayTrigger>
+              <br/>
             </label>
             <HCaptcha
               sitekey="84cdb395-5b00-4355-87ff-237a173f6ee0"
@@ -105,7 +118,8 @@ export default function AboutMe() {
                 setCaptchaDone(true);
               }}
             />
-            <Button variant="primary" type="submit">Submit</Button>
+            <br/>
+            <Button variant="primary" type="submit">Send Message</Button>
           </Form>
         </center>
         }
