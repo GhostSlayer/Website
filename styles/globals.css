@@ -45,3 +45,9 @@ body {
         width: 55% !important;
     }
 }
+
+.switch-text {
+    position:relative;
+    margin-left: 7px;
+    top:-9.5px;
+}

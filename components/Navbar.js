@@ -29,15 +29,6 @@ export const NavbarComponent = () => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="https://status.ghostslayer.tk" target="_blank">Service Status</NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="Language" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#">
-                            <Link href="/" locale="en"><a>English</a></Link>
-                        </NavDropdown.Item>
-
-                        <NavDropdown.Item href="#">
-                            <Link href="/" locale="fi"><a>Finnish (Suomi)</a></Link>
-                        </NavDropdown.Item>
-                    </NavDropdown>
                 </Nav>
                 </Navbar.Collapse>
             </Container>
