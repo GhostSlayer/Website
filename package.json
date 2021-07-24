@@ -9,6 +9,7 @@
     "update": "git stash && git pull && npm i && npm run build && pm2 start"
   },
   "dependencies": {
+    "@hcaptcha/react-hcaptcha": "^0.3.6",
     "bootstrap": "^5.0.2",
     "fs": "^0.0.1-security",
     "next": "11.0.1",

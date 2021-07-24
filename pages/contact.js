@@ -4,10 +4,12 @@ import {Button, Form} from "react-bootstrap";
 import {useState} from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 export default function AboutMe() {
   const [ session, loading ] = useSession()
   const [ message, setMessage ] = useState('')
+  const [captchaDone, setCaptchaDone] = useState(false);
 
   if (loading) return (
     <p className="container">Loading...</p>
@@ -19,7 +21,9 @@ export default function AboutMe() {
     if (!event.target.message.value) return toast.error('The message can not be empty!')
     if (event.target.message.value.length > 2000) return toast.error('The message should contain only 2000 characters')
 
-    fetch('https://ghostslayer.tk/api/contact', {
+    if (!captchaDone) return toast.error('You didn\'t complete the captcha!')
+
+    fetch(`${window.location.protocol}//${window.location.hostname}:${window.location.port ? window.location.port : ''}/api/contact`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -57,6 +61,21 @@ export default function AboutMe() {
               <Form.Label>Message</Form.Label>
               <Form.Control as="textarea" rows={3} id="message" name="message" />
             </Form.Group>
+            <HCaptcha
+              sitekey="84cdb395-5b00-4355-87ff-237a173f6ee0"
+              id="signup-page"
+              theme="dark"
+              onVerify={(token,ekey) => {
+                console.log(token)
+                console.log(ekey)
+                fetch(`https://hcaptcha.com/siteverify?response=${token}&secret=0x2f00194921669162C5ca3d63C8921c81D873C225`, {
+                  method: 'POST',
+                  mode: 'no-cors',
+                });
+
+                setCaptchaDone(true);
+              }}
+            />
             <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </center>
