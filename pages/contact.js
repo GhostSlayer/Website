@@ -48,7 +48,7 @@ export default function Contact() {
         {!session &&
         <center>
           <p>You have to sign in before contacting me</p>
-          <Button className="contact-button" onClick={() => signIn('discord')}><i className="fab fa-discord"></i> Sign in with Discord</Button>
+          <Button className="contact-button" onClick={() => signIn('discord')}><i className="fab fa-discord"/> Sign in with Discord</Button>
         </center>
         }
 
@@ -110,7 +110,7 @@ export default function Contact() {
               id="signup-page"
               theme="dark"
               onVerify={(token,ekey) => {
-                fetch(`https://hcaptcha.com/siteverify?response=${token}&secret=0x2f00194921669162C5ca3d63C8921c81D873C225`, {
+                fetch(`https://hcaptcha.com/siteverify?response=${token}&secret=${process.env.HCAPTCHA_SECRET}`, {
                   method: 'POST',
                   mode: 'no-cors',
                 });

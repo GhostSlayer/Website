@@ -1,7 +1,7 @@
 export default function handler(req, res) {
   if (req.method === 'POST') {
     fetch(
-      'https://canary.discord.com/api/webhooks/868227548516085800/TfGaO6owArBDy29GfGOkXdP3lL1dc3Pp-mm-TRIy_sIH-da8ojWGOlhjkoB61yoXU6Dy',
+      process.env.CONTACT_WEBHOOK,
       {
         method: 'post',
         headers: {
