@@ -16,15 +16,11 @@ body {
 }
 
 .nav-item, .nav-link {
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .navbar, .card {
     background-color: #0A0F1A !important;
-}
-
-.nav-img-mobile {
-    margin-bottom: 10px
 }
 
 .nav-img {

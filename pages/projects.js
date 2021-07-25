@@ -1,5 +1,5 @@
 import {SEOComponent} from "../components/SEO";
-import {Card, CardGroup, Col, Row} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 import {CardComponent} from "../components/Card";
 
 export default function Projects() {
@@ -20,6 +20,7 @@ export default function Projects() {
               title="GS API"
               description="Formerly Drivet API. The first project started on Drivet. Unfortunately, Drivet is dead :("
               url="https://api.ghostslayer.tk"
+              github="GhostSlayer/API"
             />
         </Row>
         <br/><br/>
@@ -28,6 +29,7 @@ export default function Projects() {
           <CardComponent
             title="DUP"
             description="A Discord bot i started to help reporting users to DDUB. I still do some patches on the bot, but i'm not active anymore."
+            github="DrivetDevelopment/DUP"
           />
           <CardComponent
             title="SlayBot"

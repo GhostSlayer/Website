@@ -1,5 +1,5 @@
 import {SEOComponent} from "../components/SEO";
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { signIn, useSession } from 'next-auth/client'
 import {Button, Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {useState} from "react";
 import { toast } from 'react-toastify';

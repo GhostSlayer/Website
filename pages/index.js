@@ -1,4 +1,5 @@
 import {SEOComponent} from "../components/SEO";
+
 export default function Home() {
   return (
     <div>

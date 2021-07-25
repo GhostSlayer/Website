@@ -1,7 +1,3 @@
-import {Container, Navbar, Nav, NavDropdown, Image, Badge} from 'react-bootstrap'
-import Link from 'next/link'
-import {ActiveLink} from "./ActiveLink";
-
 export const FooterComponent = () => {
   return (
     <footer className="footer">
