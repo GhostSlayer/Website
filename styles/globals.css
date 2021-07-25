@@ -73,3 +73,7 @@ body {
     padding: 0 15px !important;
     font-size: medium;
 }
+
+.project-title {
+    margin-bottom: 15px
+}
