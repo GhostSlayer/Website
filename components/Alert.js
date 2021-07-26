@@ -7,8 +7,8 @@ export const AlertComponent = ({ show, variant, title, desc }) => {
   if (showIt) {
     return (
       <Alert variant={variant ? variant : 'primary'} onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>{title}</Alert.Heading>
-        <p>{desc}</p>
+        {title ? <Alert.Heading>{title}</Alert.Heading> : ''}
+        {desc}
       </Alert>
     );
   } else return ('')

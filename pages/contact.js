@@ -1,29 +1,27 @@
 import {SEOComponent} from "../components/SEO";
-import { signIn, useSession } from 'next-auth/client'
-import {Button, Form, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Alert, Button, Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {useState} from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import Switch from "react-switch";
+import {AlertComponent} from "../components/Alert";
 
 export default function Contact() {
-  const [ session, loading ] = useSession()
-  const [ message, setMessage ] = useState('')
   const [captchaDone, setCaptchaDone] = useState(false);
-  const [removeEmail, setRemoveEmail] = useState(false);
-
-  if (loading) return (
-    <p className="container">Loading...</p>
-  )
+  const [messageSent, setMessageSent] = useState(false);
 
   const sendWebhook = (event) => {
     event.preventDefault()
+
+    if (!event.target.email.value) return toast.error('Please enter a email')
+
+    if (event.target.category.value === 'Select one category') return toast.error('Please select a category')
 
     if (!event.target.message.value) return toast.error('The message can not be empty!')
     if (event.target.message.value.length > 2000) return toast.error('The message should contain only 2000 characters')
 
     if (!captchaDone) return toast.error('You didn\'t complete the captcha!')
+    if (messageSent) return toast.error('You have already sent a message, please reload to make a new message.')
 
     fetch(`${window.location.protocol}//${window.location.hostname}:${window.location.port ? window.location.port : ''}/api/contact`, {
       method: 'post',
@@ -31,11 +29,10 @@ export default function Contact() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: `${session.user.name} | ${session.userId} | ${!removeEmail ? session.user.email : 'No email'}`,
-        avatar_url: session.user.image,
+        username: `${event.target.email.value} | ${event.target.category.value}`,
         message: event.target.message.value
       })
-    }).then(() => toast.success('Your message was sent!'))
+    }).then(() => { setMessageSent(true); toast.success('Your message was sent!')})
   }
 
   return (
@@ -44,24 +41,21 @@ export default function Contact() {
         <SEOComponent title="Contact Me"/>
         <h2 className="center">Contact Me</h2>
 
-        <br/>
-        {!session &&
         <center>
-          <p>You have to sign in before contacting me</p>
-          <Button className="contact-button" onClick={() => signIn('discord')}><i className="fab fa-discord"/> Sign in with Discord</Button>
-        </center>
-        }
 
-        {session &&
-
-        <center>
           <Form className="contact-form" onSubmit={sendWebhook}>
-            <Form.Group className="mb-3">
-              <Form.Label>Discord Name and ID</Form.Label>
+            <AlertComponent show desc="As of 7/26/21, Discord login has been removed and will use email instead."/>
+
+            <Form.Group className="mb-4">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" placeholder={`joe@tesla.com`} id="email" name="email"/>
+            </Form.Group>
+            <Form.Group className="mb-4">
+              <Form.Label>Category</Form.Label>
               <OverlayTrigger
                 overlay={
                   <Tooltip id="tooltip">
-                    Discord Name and ID is mandatory. If you are in our server, we may contact you from Discord instead of Email
+                    Select the category that fits your needs. The category doesn&apos;t have to be accurate
                   </Tooltip>
                 }
               >
@@ -69,42 +63,19 @@ export default function Contact() {
                   <i className="fas fa-info-circle"/>
                 </span>
               </OverlayTrigger>
-              <Form.Control type="text" placeholder={`${session.user.name} | ${session.userId}`} readOnly/>
+              <Form.Select id="category" name="category" defaultValue="Select one category">
+                <option disabled value="Select one category">Select one category</option>
+                <option>Support</option>
+                <option>Feedback</option>
+                <option>Bug</option>
+                <option>Question</option>
+                <option>Suggestion</option>
+              </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-4">
               <Form.Label>Message</Form.Label>
               <Form.Control as="textarea" rows={3} id="message" name="message" />
             </Form.Group>
-            <label htmlFor="material-switch">
-              <Switch
-                onChange={() => setRemoveEmail(!removeEmail)}
-                checked={removeEmail}
-                onColor="#86d3ff"
-                onHandleColor="#2693e6"
-                handleDiameter={30}
-                uncheckedIcon={false}
-                checkedIcon={false}
-                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                height={20}
-                width={48}
-                className="react-switch"
-                id="material-switch"
-              />
-              <span className="switch-text">Remove Email</span>
-              <OverlayTrigger
-                overlay={
-                  <Tooltip id="tooltip">
-                    We will collect email addresses by default so we can contact back to you. If you are just sending feedback, the email is not necessary.
-                  </Tooltip>
-                }
-              >
-                <span className="d-inline-block switch-text">
-                  <i className="fas fa-info-circle"/>
-                </span>
-              </OverlayTrigger>
-              <br/>
-            </label>
             <HCaptcha
               sitekey="84cdb395-5b00-4355-87ff-237a173f6ee0"
               id="signup-page"
@@ -119,10 +90,9 @@ export default function Contact() {
               }}
             />
             <br/>
-            <Button variant="primary" type="submit">Send Message</Button>
+            <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </center>
-        }
       </div>
     </>
   )
