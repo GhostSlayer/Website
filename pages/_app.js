@@ -5,13 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import {NavbarComponent} from "../components/Navbar";
 import {FooterComponent} from "../components/Footer";
 
-import { ToastContainer, toast } from 'react-toastify';
-import { Provider } from 'next-auth/client'
+import { ToastContainer } from 'react-toastify';
 import Head from "next/head";
 
 function SlayerWeb({ Component, pageProps }) {
   return (
-    <Provider session={pageProps.session}>
+    <>
       <Head>
         <title>GhostSlayer</title>
         <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@0ac23ca/css/all.css" rel="stylesheet" type="text/css" />
@@ -40,7 +39,7 @@ function SlayerWeb({ Component, pageProps }) {
 
         <FooterComponent/>
       </body>
-    </Provider>
+    </>
   )
 }
 
