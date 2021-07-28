@@ -1,3 +1,8 @@
 module.exports = {
-  reactStrictMode: true
+  reactStrictMode: true,
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+  },
 }

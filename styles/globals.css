@@ -29,7 +29,7 @@ body {
 }
 
 .center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .contact-form {
@@ -73,6 +73,13 @@ body {
     padding: 0 15px !important;
     font-size: medium;
 }
+
+.container.blog {
+    max-width: 900px !important;
+    width: auto !important;
+    font-size: medium;
+}
+
 
 .project-title {
     margin-bottom: 15px

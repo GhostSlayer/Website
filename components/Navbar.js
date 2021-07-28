@@ -20,8 +20,11 @@ export const NavbarComponent = () => {
                     <ActiveLink activeClassName="active" href="/projects">
                         <Nav.Link href="/projects">Projects</Nav.Link>
                     </ActiveLink>
+                    <ActiveLink activeClassName="active" href="/blog">
+                        <Nav.Link href="/blog">Blog</Nav.Link>
+                    </ActiveLink>
                     <ActiveLink activeClassName="active" href="/contact">
-                        <Nav.Link href="/contact">Contact <small><Badge pill bg="secondary">New</Badge></small></Nav.Link>
+                        <Nav.Link href="/contact">Contact</Nav.Link>
                     </ActiveLink>
                     <NavDropdown title="More" id="basic-nav-dropdown">
                         <NavDropdown.Item href="//discord.gg/NQuuQqeP7j" target="_blank">Join my Discord</NavDropdown.Item>
