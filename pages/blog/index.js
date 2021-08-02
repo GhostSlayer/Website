@@ -12,7 +12,7 @@ export default function Blog(props) {
 
   return (
     <center>
-      <SEOComponent title="Blog posts"/>
+      <SEOComponent title="Blog"/>
       <h2 className="mb-4">Blog <Badge bg="secondary">Beta</Badge></h2>
 
       {posts.map(post => (
@@ -32,7 +32,7 @@ export default function Blog(props) {
 export async function getStaticProps(context) {
   try {
     const result = await sql_query(`
-          SELECT * FROM posts
+          SELECT * FROM blog_posts
           ORDER BY created_at DESC
           LIMIT 10
       `);

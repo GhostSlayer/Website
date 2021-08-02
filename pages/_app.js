@@ -7,6 +7,7 @@ import {FooterComponent} from "../components/Footer";
 
 import { ToastContainer } from 'react-toastify';
 import Head from "next/head";
+import { Provider } from 'next-auth/client'
 
 function SlayerWeb({ Component, pageProps }) {
   return (
@@ -34,7 +35,9 @@ function SlayerWeb({ Component, pageProps }) {
 
       <body>
         <div className="container small">
-          <Component {...pageProps}/>
+          <Provider session={pageProps.session}>
+            <Component {...pageProps} />
+          </Provider>
         </div>
 
         <FooterComponent/>

@@ -1,9 +1,11 @@
 import {sql_query} from "../../lib/mysql"
 import {SEOComponent} from "../../components/SEO"
-import {DiscussionEmbed} from 'disqus-react'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
-import {Image} from "react-bootstrap";
+import {Button, Col, Form, Image, Row} from "react-bootstrap";
+import { signIn, signOut, useSession } from 'next-auth/client'
+import {toast} from "react-toastify";
+import { useState } from "react";
 
 const components = {
   // eslint-disable-next-line react/display-name
@@ -12,13 +14,15 @@ const components = {
   ),
 };
 
-const Post = ({ post, content }) => {
-  const disqusShortname = "ghostslayer"
-  const disqusConfig = {
-    url: `https://ghostslayer.tk/blog/${post.slug}`,
-    identifier: post.slug, // Single post id
-    title: post.title // Single post title
-  }
+const Post = ({ post, content, comments }) => {
+  const [ session, loading ] = useSession()
+  const [ message, setMessage ] = useState('')
+
+  if (loading) return (
+    <center>
+      Loading...
+    </center>
+  )
 
   if (!post) return (
     <center>
@@ -27,16 +31,62 @@ const Post = ({ post, content }) => {
     </center>
   )
 
+  const sendComment = (event) => {
+    event.preventDefault()
+    console.log(session)
+
+    if (!event.target.content.value) return toast.error('You have to type something before sending a comment!')
+
+    fetch(`${window.location.protocol}//${window.location.hostname}:${window.location.port ? window.location.port : ''}/api/comment`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        author: session.user.name,
+        slug: post.slug,
+        content: event.target.content.value
+      })
+    }).then(() => { toast.success('Your comment was sent! Reload to see your comment')})
+  }
+
+  const resetForm = () => { 
+    document.getElementById("form-id").reset();
+  }
+  
+
   return (
     <div className="container blog">
       <SEOComponent title={post.title}/>
       <h2>{post.title}</h2>
       <MDXRemote {...content} components={components}/>
       <br/>
-      <DiscussionEmbed
-        shortname={disqusShortname}
-        config={disqusConfig}
-      />
+      <p>Comments</p>
+      <hr/>
+      {!session && <>
+        <Button variant="primary" className="mb-5" onClick={() => signIn('github')}><i className="fab fa-github"/> Login with GitHub</Button>
+      </>}
+
+      {session && <>
+        <Form onSubmit={(event) => { sendComment(event); resetForm() }} id="form-id">
+          <Form.Group className="mb-3">
+            <Form.Label>Send a comment to this blog post</Form.Label>
+            <Form.Control as="textarea" id="content" name="content" rows={2}/>
+          </Form.Group>
+          <p style={{ fontSize: 'smaller' }}>Your username and avatar will be shown in the comment. Spamming will result on a IP Ban.</p>
+          <Button variant="primary" type="submit">Submit</Button>
+        </Form>
+      </>}
+
+      <br/>
+
+      {comments.map(comment => (
+        <div>
+          <Image className="nav-img" style={{ float: 'left', marginBottom: '6px', marginTop: '-3px' }} width={30} src={session.user.image}></Image>
+          <h5>{comment.author} <small style={{ fontSize: 'x-small' }}>{comment.created_at}</small></h5>
+          <p>{comment.content}</p>
+        </div>
+      ))}
     </div>
   )
 }
@@ -50,14 +100,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const result = await sql_query(`SELECT * FROM posts WHERE slug = ?`, params.slug);
+    const result = await sql_query(`SELECT * FROM blog_posts WHERE slug = ?`, params.slug);
+    const commentResult = await sql_query(`SELECT * FROM blog_comments WHERE post_slug = ? ORDER BY created_at DESC`, params.slug);
 
     let post = JSON.parse(JSON.stringify(result[0]))
-
+    let comments = JSON.parse(JSON.stringify(commentResult))
 
     const content = await serialize(post.content)
     return {
-      props: { post, content }
+      props: { post, content, comments }
     };
   } catch (e) {
     return { props: { post: false } }
