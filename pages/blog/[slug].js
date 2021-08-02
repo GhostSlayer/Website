@@ -82,7 +82,7 @@ const Post = ({ post, content, comments }) => {
 
       {comments.map(comment => (
         <div>
-          <Image className="nav-img" style={{ float: 'left', marginBottom: '6px', marginTop: '-3px' }} width={30} src={session.user.image}></Image>
+          <Image className="nav-img" style={{ float: 'left', marginBottom: '6px', marginTop: '-3px' }} width={30} src={session.user.image} alt=""></Image>
           <h5>{comment.author} <small style={{ fontSize: 'x-small' }}>{comment.created_at}</small></h5>
           <p>{comment.content}</p>
         </div>
